@@ -2,6 +2,8 @@ import React from 'react'
 import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 import { View } from 'react-native'
 
+import * as shape from "d3-shape"
+
 function AxesExample(props){
     const { chartDimensions: { height = 0, width = 0} } = props;
 
@@ -9,7 +11,6 @@ function AxesExample(props){
 
     const axesSvg = { fontSize: 10, fill: 'grey' };
     const verticalContentInset = { top: 10, bottom: 10 }
-    const xAxisHeight  = 0
 
     return (
         <View style={{ height, padding: 6, flexDirection: 'row', backgroundColor: "transparent" }}>
@@ -24,9 +25,10 @@ function AxesExample(props){
                     style={{ flex: 1 }}
                     data={data}
                     contentInset={verticalContentInset}
+                    curve={shape.curveNatural}
                     svg={{ stroke: 'rgba(172,220,139, 1)', strokeWidth: 6, }}
                 >
-                    <Grid/>
+                    <Grid />
                 </LineChart>
                 
             </View>

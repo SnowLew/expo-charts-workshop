@@ -1,7 +1,10 @@
 import React from 'react'
-import { ActivityIndicator,  Text, View  } from 'react-native';
+import { ActivityIndicator,  Text, View, Dimensions } from 'react-native';
 import { ProgressCircle } from 'react-native-svg-charts'
  
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 function CustomCircleChart(props){
     const { circleDimensions: { height = 0, width = 0 }, 
     circleData, 
@@ -9,7 +12,8 @@ function CustomCircleChart(props){
     fontSize= 12, 
     stroke = 2.5, 
     subString = null,
-    subStringFontsize = 12 } = props;
+    subStringFontsize = 12,
+    scalarMode = false } = props;
 
     const { progress, color } = circleData;
 
@@ -31,8 +35,8 @@ function CustomCircleChart(props){
             />
             <Text style={{ 
                 textAlign: 'center',
-                marginTop: -height+height*yAxis, 
-                fontSize,
+                marginTop: height*yAxis*-2.2, 
+                fontSize: scalarMode ? fontSize : fontSize*yAxis*height*0.02,
                 fontWeight: "600"
             }}>
             {`${Math.floor(progress*100)}%`}
@@ -40,7 +44,7 @@ function CustomCircleChart(props){
             {subString && (
             <Text style={{ 
                 textAlign: 'center', 
-                fontSize: subStringFontsize,
+                fontSize: subStringFontsize*yAxis*height*0.017,
                 fontWeight: "600"
             }}>
                 {`${subString ? subString : null}`}

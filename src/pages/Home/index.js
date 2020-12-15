@@ -130,6 +130,7 @@ function Home() {
               <CustomCircleChart
                 circleDimensions={goalsDimensions}
                 circleData={goalsData}
+                scalarMode
               />
             </View>
 

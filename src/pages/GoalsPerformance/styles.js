@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   goalsDetailsContainer: {
     backgroundColor: '#F5F6FB',
     borderRadius: 8,
-    padding: 16,
     flexDirection: 'row',
   },
   thisMonthGoalsContainer: {
