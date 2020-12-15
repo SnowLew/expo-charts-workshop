@@ -26,6 +26,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 48,
   },
+  goalsChartLoaded: {
+    flex: 1,
+    width: '100%',
+    alignSelf: 'center',
+    marginVertical: 48,
+  },
   goalsDetailsContainer: {
     backgroundColor: '#F5F6FB',
     borderRadius: 8,

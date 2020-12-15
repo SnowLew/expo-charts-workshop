@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -7,9 +7,17 @@ import { BorderlessButton } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 
 import styles from './styles';
+import CustomBarChart from '../../components/CustomBarChart';
+import { goalsData, yourBusinessData, yourBusinessDataSecond } from "../../helpers/chartData"
+import CustomCircleChart from '../../components/CustomCircleChart';
 
+const initialStateDimensions = { height: 0, width: 0}
 function Home() {
   const navigation = useNavigation();
+
+  const [yourBusinessDimensions, setYourBusinessDimensions] = useState(initialStateDimensions)
+  const [yourCompetitorDimensions, setYourCompetitorDimensions] = useState(initialStateDimensions)
+  const [goalsDimensions, setGoalsDimensions] = useState(initialStateDimensions)
 
   function handleGoalsPerformancePress() {
     navigation.navigate('goals-performance');
@@ -17,7 +25,7 @@ function Home() {
 
   function handleProductReportPress() {
     navigation.navigate('product-report');
-  }
+  } 
 
   return (
     <View style={styles.container}>
@@ -41,8 +49,26 @@ function Home() {
               </Text>
             </View>
           </View>
-          <View style={styles.businessAnalyticsChart} />
+
+          <View onLayout={ 
+            ({ nativeEvent: { layout: { height, width } }}) => setYourBusinessDimensions({ height, width })
+          } 
+          style={
+            [styles.businessAnalyticsChart,
+              yourBusinessDimensions.height != 0
+              ? styles.businessAnalyticsChartWithData
+              : styles.businessAnalyticsChartWithoutData
+            ]
+          }
+          >
+            <CustomBarChart 
+              chartData={yourBusinessData}
+              chartDimensions={yourBusinessDimensions}
+            />
+          </View>
+          
         </View>
+
         <View style={styles.businessAnalyticsContainer}>
           <View style={styles.businessAnalyticsData}>
             <Text style={styles.businessAnalyticsTitle}>Seu Negócio</Text>
@@ -58,7 +84,24 @@ function Home() {
               </Text>
             </View>
           </View>
-          <View style={styles.businessAnalyticsChart} />
+          <View style={styles.businessAnalyticsChart}>
+            <View onLayout={ 
+              ({ nativeEvent: { layout: { height, width } }}) => setYourCompetitorDimensions({ height, width })
+            } 
+            style={
+              [styles.businessAnalyticsChart,
+                yourCompetitorDimensions.height != 0
+                ? styles.businessAnalyticsChartWithData
+                : styles.businessAnalyticsChartWithoutData
+              ]
+            }
+            >
+              <CustomBarChart 
+                chartData={yourBusinessDataSecond}
+                chartDimensions={yourCompetitorDimensions}
+              />
+            </View>
+          </View>
         </View>
         <TouchableOpacity
           onPress={handleProductReportPress}
@@ -68,14 +111,28 @@ function Home() {
           <Text style={styles.comparisonButtonText}>Ver mais detalhes</Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.goalsContainer}>
-        <Text style={styles.goalsTitle}>Desepenho de Metas</Text>
+      
+        <Text style={styles.goalsTitle}>Desempenho de Metas</Text>
         <BorderlessButton
           onPress={handleGoalsPerformancePress}
           style={styles.goalsAnalyticsContainer}
         >
           <View style={styles.weekBalance}>
-            <View style={styles.weekBalanceChart} />
+
+            <View 
+             onLayout={ 
+              ({ nativeEvent: { layout: { height, width } }}) => setGoalsDimensions({ height, width })
+              } 
+              style={[styles.weekBalanceChart, goalsDimensions.width != 0 ? styles.weekBalanceChartActivate : styles.weekBalanceChartOffline ]}
+            >
+              <CustomCircleChart
+                circleDimensions={goalsDimensions}
+                circleData={goalsData}
+              />
+            </View>
+
             <View style={styles.weekBalanceData}>
               <View style={styles.weekBalanceDataDayContainer}>
                 <Text style={styles.weekBalanceDataDayTitle}>Quarta-feira</Text>

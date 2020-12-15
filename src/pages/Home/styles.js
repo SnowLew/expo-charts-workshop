@@ -72,7 +72,14 @@ const styles = StyleSheet.create({
   businessAnalyticsChart: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: '#ddd',
+  },
+  businessAnalyticsChartWithData: {
+    backgroundColor: "transparent"
+  },
+  businessAnalyticsChartWithoutData: {
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center", 
+    borderRadius: 8
   },
   comparisonButtonContainer: {
     alignItems: 'center',
@@ -103,9 +110,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   weekBalanceChart: {
-    width: 50,
+    width: 55,
     alignSelf: 'stretch',
-    backgroundColor: '#ddd',
+  },
+  weekBalanceChartActivate: {
+    backgroundColor: "transparent"
+  },
+  weekBalanceChartOffline: {
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center"
   },
   weekBalanceData: {
     flex: 1,
@@ -150,6 +163,7 @@ const styles = StyleSheet.create({
   lastMonthBalanceValue: {
     color: '#2B2B73',
   },
+
 });
 
 export default styles;

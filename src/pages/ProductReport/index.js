@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, View } from 'react-native';
 
 import { RectButton } from 'react-native-gesture-handler';
@@ -9,7 +9,10 @@ import styles from './styles';
 
 import featuredImage from '../../assets/images/bike.jpg';
 
+import CustomYAxisChart from "../../components/CustomYAxisChart"
+
 function ProductReport() {
+  const [Dimensions, setDimensions] = useState({ width: 0, height: 0 })
   return (
     <View style={styles.container}>
       <View style={styles.featuredContainer}>
@@ -37,7 +40,16 @@ function ProductReport() {
           Esse é um sumário das vendas do seu produto em uma semana de acordo
           com a renda que você teve
         </Text>
-        <View style={styles.reportChart} />
+        <View 
+        onLayout={ 
+          ({ nativeEvent: { layout: { height, width } }}) => setDimensions({ height, width })
+          } 
+           style={Dimensions.height != 0 ? styles.reportChartLoaded : styles.reportChart }
+          >
+          <CustomYAxisChart
+            chartDimensions={Dimensions}
+          />
+        </View>
         <RectButton style={styles.reportButton}>
           <Text style={styles.reportButtonText}>Ver Relatório Completo</Text>
         </RectButton>

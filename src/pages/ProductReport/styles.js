@@ -90,6 +90,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     marginVertical: 16,
   },
+  reportChartLoaded:{
+    flex: 1,
+    marginVertical: 16,
+  },
   reportButton: {
     backgroundColor: '#F6B64F',
     padding: 16,

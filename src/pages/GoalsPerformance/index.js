@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { View, Text } from 'react-native';
 
 import styles from './styles';
+import CustomCircleChart from '../../components/CustomCircleChart'
+import { goalsData } from "../../helpers/chartData";
 
 function GoalsPerformance() {
+  const [Dimensions, setDimensions] = useState({ width: 0, height: 0})
   return (
     <View style={styles.container}>
       <View style={styles.goalsContainer}>
-        <Text style={styles.goalsTitle}>Desepenho das Metas</Text>
-        <View style={styles.goalsChart} />
+        <Text style={styles.goalsTitle}>Desempenho das Metas</Text>
+        <View 
+        onLayout={ 
+            ({ nativeEvent: { layout: { height, width } }}) => setDimensions({ height, width })
+          } 
+        style={Dimensions.height != 0 ? styles.goalsChartLoaded : styles.goalsChart}>
+          <CustomCircleChart
+            circleDimensions={Dimensions}
+            circleData={goalsData}
+            fontSize={30}
+            stroke={12}
+            subString="$42 / semana "
+          />
+        </View>
+
         <View style={styles.goalsDetailsContainer}>
           <View style={styles.thisMonthGoalsContainer}>
             <Text style={styles.thisMonthGoalsTitle}>Esse mês</Text>
